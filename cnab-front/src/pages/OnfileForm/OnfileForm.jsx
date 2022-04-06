@@ -1,16 +1,14 @@
-import axios from "axios";
 import { useState } from "react";
+
+//local
 import Button from "../../components/Button/Button";
 import Card from "../../components/Card/Card";
 import FileInput from "../../components/FileInput/FileInput";
 import Warning from "../../components/Warning/Warning";
-import {
-  ButtonContent,
-  CardContent,
-  Errors,
-  InputForm,
-  Main,
-} from "./OnfileForm.style";
+import { postFormData } from "../../api/api";
+
+//style
+import * as Style from "./OnfileForm.style";
 
 const OnFileForm = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -27,35 +25,31 @@ const OnFileForm = () => {
       return;
     }
 
-    const formData = new FormData();
-
-    formData.append("cnabFile", selectedFile, selectedFile.name);
-
-    axios.post("http://localhost:3001/cnabs", formData);
+    postFormData("cnabFile", selectedFile, selectedFile.name);
   };
 
   return (
-    <Main>
-      <InputForm>
+    <Style.Main>
+      <Style.InputForm>
         <FileInput onChange={onFileChange} placeholder={"Escolher arquivo"} />
-        <Errors>{erros && erros}</Errors>
-      </InputForm>
-      <ButtonContent>
+        <Style.Errors>{erros && erros}</Style.Errors>
+      </Style.InputForm>
+      <Style.ButtonContent>
         <Button onClick={onFileUpload} description={"Upload!"} />
-      </ButtonContent>
+      </Style.ButtonContent>
 
       {selectedFile ? (
-        <CardContent>
+        <Style.CardContent>
           <Card
             title={`Name: ${selectedFile.name}`}
             subtitle={`Type file: ${selectedFile.type}`}
             description={`Last modified: ${selectedFile.lastModifiedDate.toDateString()}`}
           />
-        </CardContent>
+        </Style.CardContent>
       ) : (
         <Warning text={"Escolha um arquivo para enviar!"} />
       )}
-    </Main>
+    </Style.Main>
   );
 };
 
