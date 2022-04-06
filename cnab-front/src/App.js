@@ -1,9 +1,8 @@
-import OnFileForm from "./components/OnfileForm/OnfileForm";
+import OnFileForm from "./pages/OnfileForm/OnfileForm";
 
 const App = () => {
   return (
     <>
-      <h1>OLÁ</h1>
       <OnFileForm />
     </>
   );
